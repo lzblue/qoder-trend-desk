@@ -6,8 +6,8 @@ Start here: **[index.html](index.html)** (or the GitHub Pages link once enabled)
 
 | File | What it is |
 |---|---|
-| `qoder-trend-desk-submission.pdf` | The 8-page deck, exported from the .pptx (577,416 B) |
-| `qoder-trend-desk-submission.pptx` | The deck as generated, sha256 `66a72a401bf0ef909f1c5b64977778017523a5428cae5d93c08937aadff64c2e` (1,530,684 B) |
+| `qoder-trend-desk-submission.pdf` | The 8-page deck, exported from the .pptx (560,934 B) |
+| `qoder-trend-desk-submission.pptx` | The deck as generated, sha256 `c2824ac96cb8b3e49af1101613e393a5ad3175cf2fde1409309789c456afdf40` (1,545,595 B) |
 | `trend-desk-submission-package.zip` | The runnable package, 103 files / 3.3 MB: dashboard app, the six skills as pinned in the cloud with a per-file SHA-256 manifest, the replay engine and its recorded outputs, the decision journal, the fills/orders/equity logs, and a dated read-only snapshot of the cloud configuration |
 | `dashboard-capture.gif` | The dashboard running on the recorded logs |
 
