@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qoder Trend Desk — Moomoo × Qoder AI Paper Trading Agent Challenge</title>
+<style>
+  :root{--navy:#1F3A5F;--teal:#0E9AA7;--ink:#26374A;--muted:#6B7C8C;--line:#DCE4EC;--panel:#F4F7FA;--bg:#FBFCFD;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:16px/1.55 "Segoe UI",-apple-system,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 24px 72px;}
+  h1{font-size:30px;line-height:1.25;color:var(--navy);margin:0 0 6px;}
+  h2{font-size:19px;color:var(--navy);margin:40px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 4px;}
+  .tag{display:inline-block;background:var(--teal);color:#fff;font-size:12px;letter-spacing:.06em;
+       padding:3px 9px;border-radius:3px;text-transform:uppercase;margin-bottom:14px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:18px 0 6px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px 16px;}
+  .card b{display:block;font-size:26px;color:var(--navy);font-weight:600;letter-spacing:-.01em;}
+  .card span{font-size:13px;color:var(--muted);}
+  .dl{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 4px;}
+  .dl a{background:#fff;border:1px solid var(--teal);color:var(--teal);text-decoration:none;
+        padding:9px 16px;border-radius:5px;font-size:14px;}
+  .dl a:hover{background:var(--teal);color:#fff;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:14px;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:var(--panel);color:var(--navy);font-weight:600;white-space:nowrap;}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+  code{background:var(--panel);padding:1px 5px;border-radius:3px;font-size:13px;}
+  ul{margin:10px 0;padding-left:20px;}
+  li{margin:6px 0;}
+  .deck{width:100%;height:76vh;border:1px solid var(--line);border-radius:6px;background:#fff;}
+  .note{font-size:13px;color:var(--muted);margin-top:8px;}
+  .foot{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
+  img.gif{width:100%;border:1px solid var(--line);border-radius:6px;background:#fff;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="tag">Submission · Moomoo × Qoder AI Paper Trading Agent Challenge</span>
+  <h1>An unattended four-agent trading desk on Qoder Cloud, governed by a rulebook instead of prose</h1>
+  <p class="sub">Paper account <code>5830104</code> · $100,000 NAV · trading window 17–28 Nov 2026 · eleven cron schedules, zero manual steps between a signal and an order.</p>
+
+  <div class="grid">
+    <div class="card"><b>−0.172%</b><span>worst peak-to-trough on the live book ($99,825.82, cumulative −$172.29)</span></div>
+    <div class="card"><b>1 of 7</b><span>live trading days that produced a fill — one entry, one stop-breach close</span></div>
+    <div class="card"><b>106</b><span>sessions replayed (65 historical + 41 contest-window), 101 trades</span></div>
+    <div class="card"><b>t +0.17</b><span>pooled mean-R statistic — no edge is claimed on the whole sample</span></div>
+  </div>
+
+  <h2>The deck and the runnable package</h2>
+  <p class="sub">Eight pages, generated with Qoder. The archive beside it is the runnable agent package: dashboard app, the six skills as pinned in the cloud, the replay engine with its recorded outputs, the decision journal, and the fills/order/equity logs.</p>
+  <div class="dl">
+    <a href="qoder-trend-desk-submission.pdf">Open the deck (PDF)</a>
+    <a href="qoder-trend-desk-submission.pptx">Download the deck (.pptx)</a>
+    <a href="trend-desk-submission-package.zip">Download the package (.zip, 103 files / 3.3 MB)</a>
+  </div>
+  <iframe class="deck" src="qoder-trend-desk-submission.pdf" title="Qoder Trend Desk submission deck, 8 slides"></iframe>
+
+  <h2>What every number on the deck is traced to</h2>
+  <table>
+    <tr><th>Figure</th><th>Value</th><th>Source inside the package</th></tr>
+    <tr><td>Live NAV, cumulative P&amp;L</td><td class="num">$99,825.82 / −$172.29</td><td><code>logs/equity.csv</code>, <code>logs/closes.csv</code></td></tr>
+    <tr><td>Desk trades in the window</td><td class="num">1 entry, 1 close</td><td><code>logs/fills.csv</code> orders <code>3401709</code> / <code>3401916</code> — the close's own log text is <em>“SCAN 12:30 close stop breach SQQQ”</em></td></tr>
+    <tr><td>25 Nov</td><td class="num">4 refusal records, 0 orders</td><td><code>logs/decisions.jsonl</code> — two distinct refusals recorded four times: one account-identity, three copies of one iron-fly <em>size rounds to zero</em> verdict</td></tr>
+    <tr><td>Live sessions</td><td class="num">7 trading days</td><td><code>by_day</code> keys of <code>evidence/credits-census.json</code></td></tr>
+    <tr><td>Credit spend</td><td class="num">779.96 / 694.06 cr</td><td>150 desk sessions and 118 scheduled runs, same census, read 26 Nov</td></tr>
+    <tr><td>Replay sample</td><td class="num">106 sessions</td><td>65 of 81 candidate sessions in <code>backtest/intraday/replay_out.json</code> — the other 16 are dropped because the bar timeline shared by the six instruments does not start at the 09:35 open, so they have no opening range — plus 41 in <code>backtest/contest-window/</code>, no overlap</td></tr>
+    <tr><td>Pooled result</td><td class="num">+$1,137.91 · avg R +0.015 · t +0.17 · fees $209.21</td><td>per-trade <code>R</code> columns of both replay outputs; recomputable, not a summary field</td></tr>
+    <tr><td>By market state</td><td class="num">2018-01 t +2.83 · 2022-04 t +0.13 · 2016-08 t −2.07 · 2020-03 no trades</td><td><code>replay_out.json</code> → <code>groups</code> / <code>as_run</code> by month</td></tr>
+    <tr><td>Cloud configuration</td><td class="num">4 templates · 11 schedules · 6 skills</td><td><code>evidence/cloud-census-2026-11-26.json</code> (read-only API census)</td></tr>
+  </table>
+  <p class="note">Every figure above is recomputed from the file named beside it. Where a number is as-run rather than optimal — the strategy's own sizing, the guard's own caps, the broker's own fills — it is labelled as-run.</p>
+
+  <h2>Against the judging rubric</h2>
+  <table>
+    <tr><th>Criterion</th><th>What to look at</th></tr>
+    <tr><td>Risk-adjusted return (25%)</td><td>Live book is one round trip and −0.172% peak-to-trough — offered as a bound, not a result. The weight sits on the replay across 2016 / 2018 / 2020 / 2022 / 2026, with its t-statistics and its losing block on the slide.</td></tr>
+    <tr><td>Qoder &amp; Qoder Cloud Agent usage (30%)</td><td>Four Forward templates (coordinator → researcher / executor / risk_auditor), six pinned skills, 11 cron schedules (4 firing straight at the executor), a live dashboard, and 779.96 credits of recorded agent work. <code>docs/submission/system-overview.md</code>.</td></tr>
+    <tr><td>Strategy &amp; risk design (30%)</td><td>Three sleeves with written invalidation; every order passes <code>guard.py</code> before it exists; live-money and crypto order tools are <code>always_deny</code> in configuration, not in a prompt. <code>skills/desk-risk-guard/</code> + <code>backtest/mounted/rules.json</code>.</td></tr>
+    <tr><td>Reusability &amp; documentation (15%)</td><td>33 dated decision memos including the ones that were reverted, an append-only journal, a read-only config snapshot, and a per-file SHA-256 manifest proving the backtest ran the bytes the desk runs.</td></tr>
+  </table>
+
+  <h2>Demo — the dashboard on real data</h2>
+  <p class="sub">Captured 26 Nov 03:44 ET (US market closed) from <code>logs/</code> as the desk recorded them. The dashboard runs locally against your own token; publishing it is not required by the rules.</p>
+  <img class="gif" src="dashboard-capture.gif" alt="Trend desk dashboard: sessions, guard verdicts, equity, orders and fills populated from the real decision logs">
+
+  <h2>Run it yourself</h2>
+  <ul>
+    <li>Unzip, then <code>cd app &amp;&amp; npm install &amp;&amp; cp .env.example .env</code>, paste your own PAT into <code>.env</code>, <code>npm start</code> → <code>http://localhost:4173</code>.</li>
+    <li><code>PACKAGE-README.md</code> maps every deck figure to the file that produces it; <code>docs/submission/trading-journal.md</code> §4 is the backtest method and result tables.</li>
+    <li>No credential ships inside the archive — <code>.env</code> is excluded and <code>.env.example</code> carries an empty <code>QODER_PAT=</code>. All trading is paper-only: the live-order tool family is denied by configuration on every template.</li>
+  </ul>
+
+  <h2>Limits, stated rather than hidden</h2>
+  <ul>
+    <li>Seven live trading days is not evidence; the drawdown number is descriptive, and the pooled t-statistic of +0.17 means no edge is demonstrated on the full sample.</li>
+    <li>2016-08 is significantly negative (t −2.07) and the 18 long-QQQ replay trades average −0.605 R — this geometry needs a trending tape and loses in a dead range.</li>
+    <li>March 2020 replayed 18 sessions and traded zero times, so crisis behaviour is an inference from the volatility ladder, not a measurement.</li>
+    <li>No stop order can rest on this account type, so a breached level is exited at the next scheduled check, 12–22 minutes later; <code>max_loss</code> is the backstop.</li>
+    <li>The desk-risk-guard head build published 25 Nov (a fly-cap fix) is bound by no template, so the desk is running the version before it — and every claim here is reproduced from the pinned bytes.</li>
+  </ul>
+
+  <div class="foot">
+    Deck sha256 <code>66a72a401bf0ef909f1c5b64977778017523a5428cae5d93c08937aadff64c2e</code> · cloud census read 2026-11-26T08:46Z · credit census read 2026-11-26T09:11Z ·
+    built with Qoder Desktop and Qoder Cloud Agents (Forward), against the moomoo MCP on paper account 5830104.
+  </div>
+</div>
+</body>
+</html>
